@@ -1,4 +1,17 @@
-/bin/
-!/.settings/
-!/.vscode/
-!/out/
+# Cartelle di build e IDE
+/target/
+/.idea/
+/.vscode/
+/.settings/
+/.project
+/.classpath
+*.iml
+*.class
+*.jar
+*.war
+*.ear
+
+# Log e OS
+*.log
+.DS_Store
+Thumbs.db
