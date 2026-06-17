@@ -1,14 +1,12 @@
 package me.imablake21.pokemon.ui.states;
 
-import java.awt.Color;
-import java.awt.FontMetrics;
-import java.awt.Graphics2D;
-import java.awt.event.KeyEvent;
-
 import me.imablake21.pokemon.engine.InputHandler;
+import me.imablake21.pokemon.engine.LocalizationManager;
 import me.imablake21.pokemon.main.GamePanel;
 import me.imablake21.pokemon.main.GameState;
-import me.imablake21.pokemon.engine.LocalizationManager;
+
+import java.awt.*;
+import java.awt.event.KeyEvent;
 
 public class MainMenuState implements IGameState {
 

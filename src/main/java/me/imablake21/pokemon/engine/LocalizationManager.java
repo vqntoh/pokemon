@@ -1,10 +1,10 @@
 package me.imablake21.pokemon.engine;
 
-import static java.util.Locale.getDefault;
-import static java.util.ResourceBundle.getBundle;
-
 import java.util.Locale;
 import java.util.ResourceBundle;
+
+import static java.util.Locale.getDefault;
+import static java.util.ResourceBundle.getBundle;
 
 public final class LocalizationManager {
 
@@ -31,10 +31,10 @@ public final class LocalizationManager {
     public void setLocale(Locale locale) {
         this.currentLocale = locale;
         try {
-            messages = getBundle("../assets.lang.messages", currentLocale);
+            messages = ResourceBundle.getBundle("assets.lang.messages", currentLocale);
         } catch (Exception e) {
             System.err.println("Impossibile caricare il pacchetto di lingua per " + locale.getLanguage() + ". Caricamento default.");
-            messages = getBundle("../assets.lang.messages", getDefault());
+            messages = ResourceBundle.getBundle("assets.lang.messages", getDefault());
         }
     }
 

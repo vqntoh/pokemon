@@ -1,7 +1,8 @@
 package me.imablake21.pokemon.ui.states;
 
-import java.awt.Graphics2D;
 import me.imablake21.pokemon.main.GamePanel;
+
+import java.awt.*;
 
 public interface IGameState {
     

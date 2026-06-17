@@ -1,12 +1,9 @@
 package me.imablake21.pokemon.utils;
 
-import me.imablake21.pokemon.Game;
+import java.awt.image.BufferedImage;
+import java.io.InputStream;
 
 import static javax.imageio.ImageIO.read;
-
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
 
 public final class SpriteLoader {
 

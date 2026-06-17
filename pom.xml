@@ -17,7 +17,7 @@
     <dependencies>
         <dependency>
             <groupId>tools.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
+            <artifactId>jackson-databind</artifactId>
             <version>3.2.0</version>
             <scope>compile</scope>
         </dependency>

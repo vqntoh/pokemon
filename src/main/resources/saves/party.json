@@ -1,0 +1,52 @@
+[
+  {
+    "id": 0,
+    "name": "Bulbasaur",
+    "level": 5,
+    "maxHp": 10,
+    "currentHp": 10,
+    "attack": 200,
+    "defense": 15,
+    "speed": 0
+  },
+  {
+    "id": 0,
+    "name": "Charmander",
+    "level": 5,
+    "maxHp": 20,
+    "currentHp": 20,
+    "attack": 200,
+    "defense": 12,
+    "speed": 0
+  },
+  {
+    "id": 0,
+    "name": "Bulbasaur",
+    "level": 200,
+    "maxHp": 200,
+    "currentHp": 200,
+    "attack": 200,
+    "defense": 200,
+    "speed": 0
+  },
+  {
+    "id": 0,
+    "name": "Bulbasaur",
+    "level": 200,
+    "maxHp": 200,
+    "currentHp": 200,
+    "attack": 200,
+    "defense": 200,
+    "speed": 0
+  },
+  {
+    "id": 0,
+    "name": "Bulbasaur",
+    "level": 200,
+    "maxHp": 200,
+    "currentHp": 200,
+    "attack": 200,
+    "defense": 200,
+    "speed": 0
+  }
+]

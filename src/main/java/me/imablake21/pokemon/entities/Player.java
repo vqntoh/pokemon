@@ -1,10 +1,11 @@
 package me.imablake21.pokemon.entities;
 
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-
-import me.imablake21.pokemon.main.Constants;
+import me.imablake21.pokemon.repositories.PartyRepositoryImpl;
 import me.imablake21.pokemon.utils.SpriteLoader;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public class Player {
     public int x, y;
@@ -36,8 +37,12 @@ public class Player {
         this.tileSize = tileSize;
         
         // Inizializziamo il nuovo oggetto Party usando la costante che abbiamo definito.
-        this.party = new Party(Constants.PARTY_SAVE_FILE);
-        
+        try {
+            this.party = new Party(new PartyRepositoryImpl().load());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         loadSprites();
     }
 

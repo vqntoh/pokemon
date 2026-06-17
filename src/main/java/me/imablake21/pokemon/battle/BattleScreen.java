@@ -4,6 +4,7 @@ import me.imablake21.pokemon.entities.Player;
 import me.imablake21.pokemon.entities.Pokemon;
 import me.imablake21.pokemon.main.GamePanel;
 import me.imablake21.pokemon.main.GameWindow;
+import me.imablake21.pokemon.repositories.PartyRepositoryImpl;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -36,6 +37,8 @@ public class BattleScreen extends JPanel {
 
     private GameWindow parent;
     private GamePanel parentPanel;
+
+    private final PartyRepositoryImpl partyRepository = new PartyRepositoryImpl();
 
 
     private boolean hidePokemon = false;
@@ -120,7 +123,7 @@ public class BattleScreen extends JPanel {
 
     private void saveParty() {
         try {
-            player.getParty().saveToFile();
+            partyRepository.save(player.getParty());
             System.out.println("Squadra salvata con successo!");
         } catch (Exception e) {
             System.err.println("Errore nel salvare la squadra: " + e.getMessage());

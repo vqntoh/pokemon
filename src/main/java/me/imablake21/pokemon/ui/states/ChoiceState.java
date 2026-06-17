@@ -1,16 +1,13 @@
 package me.imablake21.pokemon.ui.states;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics2D;
-import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.List;
-
 import me.imablake21.pokemon.engine.InputHandler;
 import me.imablake21.pokemon.engine.models.ChoiceContext;
 import me.imablake21.pokemon.main.GamePanel;
+
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ChoiceState implements IGameState {
 

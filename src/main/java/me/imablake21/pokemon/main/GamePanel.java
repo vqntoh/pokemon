@@ -1,32 +1,22 @@
 package me.imablake21.pokemon.main;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.swing.JPanel;
-
+import me.imablake21.pokemon.battle.BattleManager;
 import me.imablake21.pokemon.engine.InputHandler;
 import me.imablake21.pokemon.engine.LocalizationManager;
 import me.imablake21.pokemon.engine.models.ChoiceContext;
 import me.imablake21.pokemon.entities.Player;
 import me.imablake21.pokemon.entities.Pokemon;
-import me.imablake21.pokemon.ui.states.ChoiceState;
-import me.imablake21.pokemon.ui.states.IGameState;
-import me.imablake21.pokemon.ui.states.MainMenuState;
-import me.imablake21.pokemon.ui.states.PartyScreenState;
-import me.imablake21.pokemon.ui.states.SettingsMenuState;
-import me.imablake21.pokemon.ui.states.WorldState;
+import me.imablake21.pokemon.repositories.PartyRepositoryImpl;
+import me.imablake21.pokemon.ui.states.*;
 import me.imablake21.pokemon.utils.SpriteLoader;
 import me.imablake21.pokemon.world.WorldMap;
-import me.imablake21.pokemon.battle.BattleManager;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -62,7 +52,9 @@ public class GamePanel extends JPanel implements Runnable {
     private String onScreenMessage = null;
     private long messageSetTime = 0;
     private final long MESSAGE_DISPLAY_DURATION = 2000; // 2 secondi
-
+    
+    // --- Gestione Persistenza ---
+    private final PartyRepositoryImpl partyRepository = new PartyRepositoryImpl();
 
     // --- Stato Battaglia ---
     private boolean inBattle = false;
@@ -77,7 +69,6 @@ public class GamePanel extends JPanel implements Runnable {
         addKeyListener(input);
         worldMap = new WorldMap(30, 20);
         player = new Player(4, 6, TILE_SIZE);
-        player.getParty().loadFromFile(); // Nuova chiamata per caricare
 
         loadGraphics();
         initializeStates();
@@ -202,7 +193,9 @@ gameThread = new Thread(this);
 			if (Math.random() < pokemonEncounterChance) {
 				inBattle = true;
 				Pokemon wildPokemon = new Pokemon("Bulbasaur", 5, 10, 10, 10, 15);
-				Pokemon playerPokemon = player.getParty().getPokemon(0); // Prende il primo Pokémon della squadra del giocatore
+				Pokemon playerPokemon = player.getParty()
+                        .getFirstAvailablePokemon()
+                        .orElseThrow(() -> new RuntimeException("Non ci sono piu' pokemon a disposizione nella squadra")); 
 				BattleManager battleManager = new BattleManager(window, this, player);
 				battleManager.startBattle(playerPokemon, wildPokemon);
 
@@ -224,18 +217,24 @@ gameThread = new Thread(this);
         LocalizationManager lm = LocalizationManager.getInstance();
 
         if (selectedOptionKey.equals(lm.getString("menu.pokemon"))) {
+            
             changeState(GameState.PARTY_SCREEN);
+        
         } else if (selectedOptionKey.equals(lm.getString("menu.save"))) {
-        	if (player.getParty().saveToFile()) {
-                displayOnScreenMessage(lm.getString("save.success"));
-            } else {
-                // Mostra un messaggio di errore
-            }
+        	
+            partyRepository.save(player.getParty());
+            displayOnScreenMessage(lm.getString("save.success"));
+            
             changeState(GameState.WORLD);
+            
         } else if (selectedOptionKey.equals(lm.getString("menu.settings"))) {
+        
             changeState(GameState.SETTINGS_MENU);
+        
         } else if (selectedOptionKey.equals(lm.getString("menu.exit"))) {
-            askToExitGame(); // Usiamo un metodo helper per la nuova logica
+        
+            askToExitGame();
+        
         }
     }
     
@@ -244,7 +243,7 @@ gameThread = new Thread(this);
         
         // Definiamo le azioni per "Sì" e "No"
         Runnable actionYes = () -> {
-            player.getParty().saveToFile(); // <-- QUESTA È LA CHIAMATA CORRETTA
+            partyRepository.save(player.getParty()); // <-- QUESTA È LA CHIAMATA CORRETTA
             System.exit(0);
         };
         

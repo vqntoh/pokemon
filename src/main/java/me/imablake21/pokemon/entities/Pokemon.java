@@ -1,8 +1,9 @@
 package me.imablake21.pokemon.entities;
 
-import java.awt.image.BufferedImage;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 
 public class Pokemon {
     private String name;
@@ -11,7 +12,8 @@ public class Pokemon {
     private int currentHp;
     private int attack;
     private int defense;
-    private int speed; // Aggiungo speed per il sistema di turni.
+    private int speed;
+    @JsonIgnore
     private BufferedImage sprite;
 
     public Pokemon(String name, int level, int maxHp, int attack, int defense, int speed) {
@@ -23,6 +25,8 @@ public class Pokemon {
         this.defense = defense;
         this.speed = speed; 
     }
+
+    public Pokemon() {}
 
 
     private void loadSprite() {
